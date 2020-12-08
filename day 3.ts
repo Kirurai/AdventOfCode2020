@@ -324,16 +324,33 @@ let input =
 .#...#.#####....##..........##.`;
 const list = input.split("\n");
 list.shift();
-let count = 0;
-const trees = list.reduce( (acc, el) => {
-    count += 3;
-    if (count > el.length - 1){
-        count -= el.length;
-    }
-    console.log(`${el} ${el[count]} ${count}`);
-    return el[count] === "#" ? acc + 1 : acc;
-}, 0);
 
+const cantidadArboles = (list: string[], desplazamientos: number) => {    
+    let count = 0;
+    return list.reduce( (acc, el) => {
+        count += desplazamientos;
+        if (count > el.length - 1){
+            count -= el.length;
+        }
+        return el[count] === "#" ? acc + 1 : acc;
+    }, 0);
+}
 
+const tresDerechaUnoAbajo = cantidadArboles(list, 3);
 
-console.log(trees);
+const unoDerechaUnoAbajo = cantidadArboles(list, 1);
+
+const cincoDerechaUnoAbajo = cantidadArboles(list, 5);
+
+const sieteDerechaUnoAbajo = cantidadArboles(list, 7);
+
+let flag = true;
+let nuevaLista = list.filter( el =>{
+  flag = !flag;
+  return flag;
+} );
+const unoDerechaDosAbajo = cantidadArboles(nuevaLista, 1); 
+
+let cantidadArbolesMultiplicados = unoDerechaDosAbajo*unoDerechaUnoAbajo*tresDerechaUnoAbajo*cincoDerechaUnoAbajo*sieteDerechaUnoAbajo;
+
+console.log(cantidadArbolesMultiplicados);
