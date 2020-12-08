@@ -1011,4 +1011,16 @@ let validPW = list.reduce( (acc, el) => {
     return count >= min && count <= max ? acc + 1 : acc;
 }, 0);
 
+let validPWNewPolicy = list.reduce( (acc, el) => {
+    let first = parseInt(el[0].split("-")[0]) - 1;
+    let second = parseInt(el[0].split("-")[1]) - 1;
+    let letter = el[1][0];
+    let word = el[2];
+    let onlyFirst = word[first] === letter;
+    let onlySecond = word[second] === letter;
+    return onlyFirst !== onlySecond ? acc + 1 : acc;
+}, 0);
+
+
 console.log(validPW);
+console.log(validPWNewPolicy);
